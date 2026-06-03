@@ -3,214 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte de Résidence</title>
+    <title>Kat Rezidans Ofisyèl</title>
     <style>
+        /* --- ESTIL JENERAL (BACKGROUND) --- */
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle, #1e272e 0%, #0f141c 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: #fff;
         }
 
-        /* Konsepsyon Kat la */
+        /* --- BÈL DIZAY POU FÒM KONEKSYON AN --- */
+        .login-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 340px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: all 0.4s ease;
+        }
+
+        .login-card h2 {
+            margin: 0 0 10px 0;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card p {
+            font-size: 13px;
+            color: #8a99ad;
+            margin-bottom: 25px;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-box label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #3a7bd5;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #00d2ff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .error-txt {
+            color: #ff4d4d;
+            font-size: 13px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* --- BÈL DIZAY POU KAT REZIDANS LAN --- */
+        .secure-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .residence-card {
-            width: 500px;
-            height: 300px;
-            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 20px;
+            width: 540px;
+            height: 320px;
+            background: linear-gradient(135deg, #ffffff 0%, #e3e9ed 100%);
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            padding: 25px;
             box-sizing: border-box;
             position: relative;
-            border: 2px solid #718093;
-            overflow: hidden;
+            border: 2px solid #2c3e50;
+            color: #1e272e;
         }
 
-        /* Filigran / Fond */
+        /* Efè sekirite nan fon kat la */
         .residence-card::before {
-            content: "RÉSIDENT";
+            content: "RÉSIDENT PERMANENT";
             position: absolute;
-            font-size: 60px;
-            font-weight: bold;
-            color: rgba(255, 255, 255, 0.15);
-            transform: rotate(-25deg);
-            top: 30%;
-            left: 15%;
+            font-size: 45px;
+            font-weight: 900;
+            color: rgba(44, 62, 80, 0.04);
+            transform: rotate(-20deg);
+            top: 35%;
+            left: 5%;
             z-index: 1;
             pointer-events: none;
+            letter-spacing: 2px;
         }
 
-        /* Tèt Kat la */
         .card-header {
             text-align: center;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
+            border-bottom: 3px double #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
             position: relative;
             z-index: 2;
         }
 
         .card-header h1 {
-            font-size: 16px;
+            font-size: 18px;
             margin: 0;
             text-transform: uppercase;
             color: #2c3e50;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 800;
         }
 
         .card-header h2 {
-            font-size: 13px;
-            margin: 3px 0 0 0;
-            color: #7f8c8d;
+            font-size: 12px;
+            margin: 4px 0 0 0;
+            color: #70a1ff;
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
-        /* Kò Kat la (Foto ak Enfòmasyon) */
         .card-body {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             position: relative;
             z-index: 2;
         }
 
-        /* Blòk Foto a */
-        .photo-section {
+        .photo-area {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .profile-img {
-            width: 110px;
-            height: 130px;
+        .user-img {
+            width: 120px;
+            height: 145px;
             object-fit: cover;
             border: 2px solid #2c3e50;
-            border-radius: 5px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             background-color: #fff;
         }
 
-        .signature-box {
-            margin-top: 10px;
-            width: 110px;
-            height: 35px;
+        .sign-area {
+            margin-top: 12px;
+            width: 120px;
+            height: 32px;
             border: 1px dashed #7f8c8d;
-            background-color: rgba(255,255,255,0.5);
-            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 11px;
             color: #7f8c8d;
             font-style: italic;
         }
 
-        /* Blòk Teks Done yo */
-        .info-section {
+        .info-area {
             flex-grow: 1;
             display: grid;
             grid-template-columns: 1fr;
-            row-gap: 8px;
+            row-gap: 10px;
         }
 
-        .info-group {
+        .data-box {
             display: flex;
             flex-direction: column;
         }
 
-        .info-row-inline {
+        .inline-row {
             display: flex;
             justify-content: space-between;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .label {
-            font-size: 10px;
+        .field-title {
+            font-size: 9px;
             text-transform: uppercase;
             color: #7f8c8d;
             font-weight: bold;
-            margin-bottom: 1px;
+            letter-spacing: 0.5px;
         }
 
-        .value {
-            font-size: 14px;
-            font-weight: bold;
+        .field-value {
+            font-size: 15px;
+            font-weight: 700;
             color: #2c3e50;
             text-transform: uppercase;
+            margin-top: 2px;
         }
 
-        /* Anba Kat la (Dat ak Nimewo) */
         .card-footer {
             position: absolute;
-            bottom: 15px;
-            left: 20px;
-            right: 20px;
+            bottom: 18px;
+            left: 25px;
+            right: 25px;
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            padding-top: 8px;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 10px;
             font-size: 11px;
             z-index: 2;
         }
 
-        .card-id {
+        .id-number {
             font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
             font-weight: bold;
-            color: #d35400;
+            color: #ff4757;
+        }
+
+        .exit-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ff4d4d;
+            border: 1px solid rgba(255, 4d, 4d, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: #ff4d4d;
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <div class="residence-card">
-        <div class="card-header">
-            <h1>République Démocratique du Congo</h1>
-            <h2>CARTE DE RÉSIDENCE</h2>
+    <div class="login-card" id="loginInterface">
+        <h2>Espas Sekirize</h2>
+        <p>Antre idantifyan ou pou w wè kat la</p>
+        
+        <div class="input-box">
+            <label>Nimewo Itilizatè (ID)</label>
+            <input type="text" id="userID" placeholder="Egz: 12345678">
         </div>
-
-        <div class="card-body">
-            <div class="photo-section">
-                <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0TuHToiNWnU1Rbr8ARH2PyhuQf4bHY0DuzbdB2h2vg&s=10" alt="Foto Souffrant Robes">
-                <div class="signature-box">Signature</div>
-            </div>
-
-            <div class="info-section">
-                <div class="info-group">
-                    <span class="label">Nom / Surname</span>
-                    <span class="value">SOUFFRANT</span>
-                </div>
-                
-                <div class="info-group">
-                    <span class="label">Prénom / Given Names</span>
-                    <span class="value">Robes</span>
-                </div>
-
-                <div class="info-row-inline">
-                    <div class="info-group">
-                        <span class="label">Nationalité / Nationality</span>
-                        <span class="value">HT (Haïtienne)</span>
-                    </div>
-                    <div class="info-group">
-                        <span class="label">Sexe / Sex</span>
-                        <span class="value">M</span>
-                    </div>
-                </div>
-
-                <div class="info-group">
-                    <span class="label">Date de Naissance / Date of Birth</span>
-                    <span class="value">10 Janvier 1995</span>
-                </div>
-            </div>
+        
+        <div class="input-box">
+            <label>Modpas</label>
+            <input type="password" id="userPIN" placeholder="Egz: 1234">
         </div>
-
-        <div class="card-footer">
-            <div><span style="color: #7f8c8d;">Expire le:</span> <b>02/06/2028</b></div>
-            <div class="card-id">N° RE-849201-HT</div>
-        </div>
+        
+        <button class="submit-btn" onclick="validateUser()">Aksede ak Kat la</button>
+        <div class="error-txt" id="errorMessage">ID oswa Modpas sa a pa kòrèk!</div>
     </div>
+
+    <div class="secure-container" id="cardInterface">
+        <div class="residence-card">
+            <div class="card-header">
+                <h1>République Démocratique du Congo</h1>
+                <h2>CARTE DE RÉSIDENCE</h2>
+            </div>
+
+            <div class="card-body">
+                <div class="photo-area">
+                    <img class="user-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0TuHToiNWnU1Rbr8ARH2PyhuQf4bHY0DuzbdB2h2vg&s=10" alt="Robes Souffrant">
+                    <div class="sign-area">Robes.S</div>
+                </div>
+
+                <div class="info-area">
+                    <div class="data-box">
+                        <span class="field-title">Nom / Surname</span>
+                        <span class="field-value">SOUFFRANT</span>
+                    </div>
+                    
+                    <div class="data-box">
+                        <span class="field-title">Prénom / Given Names</span>
+                        <span class="field-value">Robes</span>
+                    </div>
+
+                    <div class="inline-row">
+                        <div class="data-box">
+                            <span class="field-title">Nationalité / Nationality</span>
+                            <span class="field-value">HT (Haïtienne)</span>
+                        </div>
+                        <div class="data-box">
+                            <span class="field-title">Sexe / Sex</span>
+                            <span class="field-value">M</span>
+                        </div>
+                    </div>
+
+                    <div class="data-box">
+                        <span class="field-title">Date de Naissance / Date of Birth</span>
+                        <span class="field-value">10 Janvier 1995</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div><span style="color: #7f8c8d;">Expire le:</span> <b style="color: #2c3e50;">02/06/2028</b></div>
+                <div class="id-number">N° RE-849201-HT</div>
+            </div>
+        </div>
+        
+        <button class="exit-btn" onclick="lockCard()">Debranche</button>
+    </div>
+
+    <script>
+        function validateUser() {
+            const inputID = document.getElementById("userID").value.trim();
+            const inputPIN = document.getElementById("userPIN").value.trim();
+            const errDisplay = document.getElementById("errorMessage");
+
+            // Sèl login ki otorize a
+            if (inputID === "12345678" && inputPIN === "1234") {
+                document.getElementById("loginInterface").style.display = "none";
+                document.getElementById("cardInterface").style.display = "flex";
+                errDisplay.style.display = "none";
+            } else {
+                errDisplay.style.display = "block";
+            }
+        }
+
+        function lockCard() {
+            // Netwaye bwat yo epi kache kat la ankò
+            document.getElementById("userID").value = "";
+            document.getElementById("userPIN").value = "";
+            document.getElementById("loginInterface").style.display = "block";
+            document.getElementById("cardInterface").style.display = "none";
+        }
+    </script>
 
 </body>
 </html>
